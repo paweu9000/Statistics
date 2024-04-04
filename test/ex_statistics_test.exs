@@ -1,6 +1,9 @@
 defmodule ExStatisticsTest do
   use ExUnit.Case
-  doctest ExStatistics
+  alias ExStatistics.{Data, Quartiles, Coefficients}
+  doctest Data
+  doctest Quartiles
+  doctest Coefficients
 
 
 end

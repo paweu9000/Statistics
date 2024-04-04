@@ -1,15 +1,16 @@
 defmodule ExStatistics.Quartiles do
-  require Integer
+  alias ExStatistics.Quartiles
   alias ExStatistics.Data
+  require Integer
 
   @type flag :: :first | :second | :third
 
   @doc ~S"""
   Calculate first quartile from provided Data set
   ## Examples
-    iex> get_first_quartile(Data.new([0, 1, 4, 5, 6, 9, 13, 17, 22, 30, 47], [2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1]))
+    iex> Quartiles.get_first_quartile(Data.new([0, 1, 4, 5, 6, 9, 13, 17, 22, 30, 47], [2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1]))
     1.0
-    iex> get_first_quartile(Data.new([{30, 35}, {35, 40}, {40, 45}, {45, 50}, {50, 55}, {55, 60}], [10, 15, 25, 45, 40, 15]))
+    iex> Quartiles.get_first_quartile(Data.new([{30, 35}, {35, 40}, {40, 45}, {45, 50}, {50, 55}, {55, 60}], [10, 15, 25, 45, 40, 15]))
     42.5
   """
   @spec get_first_quartile(Data.type()) :: number()
@@ -22,9 +23,9 @@ defmodule ExStatistics.Quartiles do
   @doc ~S"""
   Calculate second quartile(median) from provided Data set
   ## Examples
-    iex> get_second_quartile(Data.new([0, 1, 4, 5, 6, 9, 13, 17, 22, 30, 47], [2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1]))
+    iex> Quartiles.get_second_quartile(Data.new([0, 1, 4, 5, 6, 9, 13, 17, 22, 30, 47], [2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1]))
     6.0
-    iex> get_second_quartile(Data.new([{30, 35}, {35, 40}, {40, 45}, {45, 50}, {50, 55}, {55, 60}], [10, 15, 25, 45, 40, 15]))
+    iex> Quartiles.get_second_quartile(Data.new([{30, 35}, {35, 40}, {40, 45}, {45, 50}, {50, 55}, {55, 60}], [10, 15, 25, 45, 40, 15]))
     47.833333333333336
   """
   @spec get_second_quartile(Data.type()) :: number()
@@ -37,9 +38,9 @@ defmodule ExStatistics.Quartiles do
   @doc ~S"""
   Calculate third quartile from provided Data set
   ## Examples
-    iex> get_third_quartile(Data.new([0, 1, 4, 5, 6, 9, 13, 17, 22, 30, 47], [2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1]))
+    iex> Quartiles.get_third_quartile(Data.new([0, 1, 4, 5, 6, 9, 13, 17, 22, 30, 47], [2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1]))
     19.5
-    iex> get_third_quartile(Data.new([{30, 35}, {35, 40}, {40, 45}, {45, 50}, {50, 55}, {55, 60}], [10, 15, 25, 45, 40, 15]))
+    iex> Quartiles.get_third_quartile(Data.new([{30, 35}, {35, 40}, {40, 45}, {45, 50}, {50, 55}, {55, 60}], [10, 15, 25, 45, 40, 15]))
     52.1875
   """
   @spec get_third_quartile(Data.type()) :: number()
@@ -54,9 +55,9 @@ defmodule ExStatistics.Quartiles do
   and flag describing which quartile position
   You want to get (:first, :second, :third)
   ## Examples
-    iex> calculate_quartile_pos(Data.new([0, 1, 4, 5, 6, 9, 13, 17, 22, 30, 47], [2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1]), :third)
+    iex> Quartiles.calculate_quartile_pos(Data.new([0, 1, 4, 5, 6, 9, 13, 17, 22, 30, 47], [2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1]), :third)
     9.75
-    iex> calculate_quartile_pos(Data.new([{30, 35}, {35, 40}, {40, 45}, {45, 50}, {50, 55}, {55, 60}], [10, 15, 25, 45, 40, 15]), :second)
+    iex> Quartiles.calculate_quartile_pos(Data.new([{30, 35}, {35, 40}, {40, 45}, {45, 50}, {50, 55}, {55, 60}], [10, 15, 25, 45, 40, 15]), :second)
     75.5
   """
   @spec calculate_quartile_pos(Data.type(), flag()) :: number()
