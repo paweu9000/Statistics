@@ -1,4 +1,5 @@
-defmodule Data do
+defmodule ExStatistics.Data do
+  alias ExStatistics.Data
   @typedoc """
   Represents statistics data such as
   \n`:single`\n
@@ -9,7 +10,7 @@ defmodule Data do
   @type x :: [number()] | [{number(), number()}]
   @type n :: [integer()]
 
-  @type data :: %Data{
+  @type data :: %{
     type: type(),
     x: x(),
     n: n()
@@ -47,7 +48,7 @@ defmodule Data do
     14
   """
   @spec get_total_x(Data.type()) :: number()
-  def get_total_x(%{type: type, x: x, n: n}) do
+  def get_total_x(%Data{type: type, x: x, n: n}) do
     case type do
       :single -> Enum.zip(x, n)
                 |> Enum.reduce(0, fn {fs, sd}, acc -> fs * sd + acc end)
