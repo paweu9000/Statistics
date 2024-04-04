@@ -1,6 +1,6 @@
-defmodule Quartiles do
+defmodule ExStatistics.Quartiles do
   require Integer
-  require Data
+  alias ExStatistics.Data
 
   @type flag :: :first | :second | :third
 
