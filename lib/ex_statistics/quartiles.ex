@@ -79,32 +79,40 @@ defmodule ExStatistics.Quartiles do
   Finds specific x values that need to be used to calculate quartile
   """
   @spec find_quartile(number(), Data.type(), flag()) :: number()
-  def find_quartile(pos, %{type: type, x: x, n: n}, flag) do
-    Enum.zip(x, n)
-    |> Enum.reduce_while({0, {}, {}}, fn {a, b}, {acc, first, _second} ->
-      cond do
-        type == :single && (flag == :first || flag == :second) -> if acc + b >= pos,
-                        do: {:halt, {acc, {a, b}, {a, b}}},
-                        else: {:cont, {acc + b, {a, b}, {}}}
-        type == :single && flag == :third -> if acc >= pos,
-                        do: {:halt, {acc, first, {a, b}}},
-                        else: {:cont, {acc + b, {a, b}, {}}}
-        true -> if acc + b >= pos,
-                    do: {:halt, {acc, first, {a, b}}},
-                    else: {:cont, {acc + b, {a, b}, {}}}
-      end
-    end)
-    |> calculate_quartile(pos)
+  def find_quartile(pos, %Data{type: type, x: x, n: n}, flag) do
+    if type == :ranged do
+      Enum.zip(x, n)
+      |> Enum.reduce_while({0, {}, {}}, fn {a, b}, {acc, first, _second} ->
+        if acc + b >= pos,
+          do: {:halt, {acc, first, {a, b}}},
+          else: {:cont, {acc + b, {a, b}, {}}}
+        end)
+      |> calculate_quartile(pos)
+    else
+      k = Enum.sum(n)
+      quart = case flag do
+                :first -> div(k, 4)
+                :second -> div(k, 2)
+                :third -> div(3*k, 4)
+              end
+      Enum.zip(x, n)
+      |> Enum.reduce([], fn {xi, ni}, acc -> [List.duplicate(xi, ni)|acc] end)
+      |> Enum.reverse()
+      |> List.flatten()
+      |> calculate_quartile(flag, quart)
+    end
   end
 
   @doc ~S"""
   Calculate :single or :ranged quartile depending on provided arguments
   """
-  @spec calculate_quartile({number(), {integer(), integer()}, {integer(), integer()}}, number()) :: number()
-  def calculate_quartile({_, {pX, _pN}, {nX, _nN}}, pos) when is_number(pX) do
-    case floor(pos) == ceil(pos) do
-      true -> nX
-      _ -> (nX + pX) / 2
+  @spec calculate_quartile(list(integer()), flag(), number()) :: number()
+  def calculate_quartile(nums, flag, position) do
+    case flag do
+      :third -> (Enum.at(nums, position-1) + Enum.at(nums, position))/2
+      _ -> if (rem(position, 4) < 2),
+              do: (Enum.at(nums, position-1) + Enum.at(nums, position))/2,
+              else: Enum.at(nums, position-1)
     end
   end
 
@@ -112,5 +120,14 @@ defmodule ExStatistics.Quartiles do
   def calculate_quartile({total, {t, _pN}, {{nX1, nX2}, nN}}, pos) when is_tuple(t) do
     nX1 + ((pos - total) / nN) * (nX2 - nX1)
   end
+
+  @doc ~S"""
+    Calculate quartile deviation
+    ## Example:
+    iex> d = Quartiles.quartile_deviation(Data.new([-2, -1, 0, 1, 2], [12, 13, 27, 23, 25]))
+    1.0
+  """
+  @spec quartile_deviation(Data.type()) :: number()
+  def quartile_deviation(data), do: (get_third_quartile(data) - get_first_quartile(data)) / 2
 
 end
