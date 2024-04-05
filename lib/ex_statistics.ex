@@ -1,5 +1,5 @@
 defmodule ExStatistics do
-  alias ExStatistics.{Data, Quartiles, Coefficients}
+  alias ExStatistics.{Data, Quartiles, Coefficients, Asymmetry}
 
   # Basic operations
 
@@ -24,6 +24,10 @@ defmodule ExStatistics do
   @spec standard_deviation(Data.type()) :: number()
   def standard_deviation(data), do:  Coefficients.get_standard_deviation(data)
 
+  @spec coefficient_of_variation(Data.type()) :: number()
   def coefficient_of_variation(data), do: Coefficients.coefficient_of_variation(data)
+
+  @spec asymmetry_dominant(Data.type()) :: number()
+  def asymmetry_dominant(data), do: Asymmetry.dominant(data)
 
 end

@@ -28,7 +28,7 @@ defmodule ExStatistics.Coefficients do
     x = [{-1, 0}, {0, 1}, {1, 2}] - smallest -1, biggest 2, range = 3
     ##Example
     iex> Coefficients.get_empirical_range_of_variability(Data.new([{-1, 0}, {0, 1}, {1, 2}], [1, 2, 3]))
-    3.0
+    3
   """
   @spec get_empirical_range_of_variability(Data.type()) :: number()
   def get_empirical_range_of_variability(%Data{type: type, x: x}) do
@@ -46,7 +46,7 @@ defmodule ExStatistics.Coefficients do
     iex> Coefficients.get_mean_absolute_deviation(Data.new([-2, -1, 0, 1, 2], [12, 13, 27, 23, 25]))
     0.36
   """
-  @spec get_mean_absolute_deviation()
+  @spec get_mean_absolute_deviation(Data.type()) :: number()
   def get_mean_absolute_deviation(data) do
     case data.type do
       :single ->

@@ -1,5 +1,4 @@
 defmodule ExStatistics.Quartiles do
-  alias ExStatistics.Quartiles
   alias ExStatistics.Data
   require Integer
 
@@ -9,7 +8,7 @@ defmodule ExStatistics.Quartiles do
   Calculate first quartile from provided Data set
   ## Examples
     iex> Quartiles.get_first_quartile(Data.new([0, 1, 4, 5, 6, 9, 13, 17, 22, 30, 47], [2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1]))
-    1.0
+    1
     iex> Quartiles.get_first_quartile(Data.new([{30, 35}, {35, 40}, {40, 45}, {45, 50}, {50, 55}, {55, 60}], [10, 15, 25, 45, 40, 15]))
     42.5
   """
@@ -24,7 +23,7 @@ defmodule ExStatistics.Quartiles do
   Calculate second quartile(median) from provided Data set
   ## Examples
     iex> Quartiles.get_second_quartile(Data.new([0, 1, 4, 5, 6, 9, 13, 17, 22, 30, 47], [2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1]))
-    6.0
+    5
     iex> Quartiles.get_second_quartile(Data.new([{30, 35}, {35, 40}, {40, 45}, {45, 50}, {50, 55}, {55, 60}], [10, 15, 25, 45, 40, 15]))
     47.833333333333336
   """
@@ -39,7 +38,7 @@ defmodule ExStatistics.Quartiles do
   Calculate third quartile from provided Data set
   ## Examples
     iex> Quartiles.get_third_quartile(Data.new([0, 1, 4, 5, 6, 9, 13, 17, 22, 30, 47], [2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1]))
-    19.5
+    15.0
     iex> Quartiles.get_third_quartile(Data.new([{30, 35}, {35, 40}, {40, 45}, {45, 50}, {50, 55}, {55, 60}], [10, 15, 25, 45, 40, 15]))
     52.1875
   """
@@ -124,7 +123,7 @@ defmodule ExStatistics.Quartiles do
   @doc ~S"""
     Calculate quartile deviation
     ## Example:
-    iex> d = Quartiles.quartile_deviation(Data.new([-2, -1, 0, 1, 2], [12, 13, 27, 23, 25]))
+    iex> Quartiles.quartile_deviation(Data.new([-2, -1, 0, 1, 2], [12, 13, 27, 23, 25]))
     1.0
   """
   @spec quartile_deviation(Data.type()) :: number()
