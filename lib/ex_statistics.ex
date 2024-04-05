@@ -21,7 +21,9 @@ defmodule ExStatistics do
     end
   end
 
-  @spec coefficient(Data.type()) :: number()
-  def coefficient(data), do:  Coefficients.get_coefficient(data)
+  @spec standard_deviation(Data.type()) :: number()
+  def standard_deviation(data), do:  Coefficients.get_standard_deviation(data)
+
+  def coefficient_of_variation(data), do: Coefficients.coefficient_of_variation(data)
 
 end
