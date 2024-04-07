@@ -30,4 +30,7 @@ defmodule ExStatistics do
   @spec asymmetry_dominant(Data.type()) :: number()
   def asymmetry_dominant(data), do: Asymmetry.dominant(data)
 
+  @spec skewness_coefficient(Data.type()) :: tuple()
+  def skewness_coefficient(data), do: Asymmetry.skewness_coefficient(data)
+
 end
