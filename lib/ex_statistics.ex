@@ -33,4 +33,9 @@ defmodule ExStatistics do
   @spec skewness_coefficient(Data.type()) :: tuple()
   def skewness_coefficient(data), do: Asymmetry.skewness_coefficient(data)
 
+  @spec cumulated_data(Data.type()) :: Concentration.cumulation()
+  def cumulated_data(data), do: Concentration.cumulated_data(data)
+
+  @spec lorentz(Data.type()) :: number()
+  def lorentz(data), do: Concentration.lorentz(data)
 end
