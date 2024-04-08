@@ -1,5 +1,5 @@
 defmodule ExStatistics do
-  alias ExStatistics.{Data, Quartiles, Coefficients, Asymmetry}
+  alias ExStatistics.{Data, Quartiles, Coefficients, Asymmetry, Concentration}
 
   # Basic operations
 
